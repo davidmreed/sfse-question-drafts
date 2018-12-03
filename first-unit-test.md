@@ -24,22 +24,26 @@ Fundamentally, testing comprises three steps:
  1. Executing that code in a test context, meaning that the code runs within a method annotated with the `@isTest` annotation.
  1. Writing assertions to demonstrate that the results of the code are correct and as expected for the given inputs.
 
+Then, all code that is executed under step (2) is counted as *covered* under Salesforce's code coverage metrics. 
+
 Unit testing principles are quite general, and most Apex code is not special in the sense of requiring unique approaches to create a successful test. Techniques for implementing tests that perform all three steps are taught in the resources we include below.
 
 On Salesforce, all unit tests are executed in an isolated context. In this context, your code cannot see data in your organization, including ordinary records as well as Custom Settings. However, metadata records, including Users and Custom Metadata, are visible. An older annotation, `seeAllData=true`, allows tests to see all data in the Salesforce org. Use of this annotation is **strongly discouraged** for new unit tests, and is considered a very bad practice. It's important instead to follow the first step above, by designing test data as input for your code.
 
-Unit tests that don't contain assertions are often called *smoke tests*. These tests have limited utility, because they show nothing other than that your code does not crash under a specific set of circumstances. They don't prove the code works or does what it's intended to do.
+Unit tests that don't contain assertions are often called *smoke tests*. These tests have very limited value, because they show nothing other than that your code does not crash under a specific set of circumstances. They don't prove the code works or does what it's intended to do.
 
-## Trailhead
+## Resources
+
+### Trailhead
 
  - [Apex Testing](https://trailhead.salesforce.com/content/learn/modules/apex_testing)
  - [Apex REST Callouts](https://trailhead.salesforce.com/en/content/learn/modules/apex_integration_services/apex_integration_rest_callouts) and [Apex SOAP Callouts](https://trailhead.salesforce.com/content/learn/modules/apex_integration_services/apex_integration_soap_callouts) cover the use of mocking to test callout code.
  
- ## Apex Developer Guide
+ ### Apex Developer Guide
  
   - [Testing Apex](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing.htm)
  
- ## Blogs and Articles
+ ### Blogs and Articles
  
   - [How to Write Good Unit Tests](https://developer.salesforce.com/page/How_to_Write_Good_Unit_Tests)
   - Month of Testing series from the Salesforce Developers blog.
