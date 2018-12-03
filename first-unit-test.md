@@ -1,6 +1,6 @@
 # Question
 
-*This is a **canonical question and answer** developed by the community to help address common questions. If you've been directed here, or your question has been closed as a duplicate, please look through the resources here and use them to shape more specific questions. To browse all canonical questions and answers, including more unit test resources, navigate to the `canonical-qa` tag.*
+*This is a **canonical question and answer** developed by the community to help address common questions. If you've been directed here, or your question has been closed as a duplicate, please look through the resources here and use them to shape more specific questions. To browse all canonical questions and answers, including more unit test resources, navigate to the [`canonical-qa`](https://salesforce.stackexchange.com/questions/tagged/canonical-qa) tag.*
 
 This canonical question is intended to address these *inspecific* questions by providing a quick summary and links to comprehensive resources:
 
@@ -8,7 +8,7 @@ This canonical question is intended to address these *inspecific* questions by p
  - How do I unit test this code? 
  - I need help writing this unit test.
  
-Salesforce Stack Exchange looks for detailed, specific questions that the community can help you with, and can't help with writing a unit test from scratch. We feel that working with the resources below can help you get started, and we encourage you to make an attempt to write your test and return to SFSE with your specific questions when you encounter challenges you can't resolve.
+Salesforce Stack Exchange looks for detailed, specific questions that the community can help you with, and can't write tests on your behalf. We feel that working with the resources below can help you get started, and we encourage you to make an attempt to write your test and return to SFSE with your specific questions when you encounter challenges you can't resolve.
 
 # Answer
 
