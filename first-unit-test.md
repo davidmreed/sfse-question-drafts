@@ -16,7 +16,7 @@ This answer is not intended to teach you everything about writing unit tests, no
 
 ## Overview
 
-Unit (and integration) testing is a large, complex topic. If you've never written a unit test before, we strongly encourage you to complete the Apex Testing Trailhead module and read at least the Month of Testing series and How to Write Good Unit Tests articles. All of these materials are linked under Resources below.
+Unit (and integration) testing is a big topic, but it starts with a small set of principles. If you've never written a unit test before, we strongly encourage you to complete the [Apex Testing Trailhead module](https://trailhead.salesforce.com/content/learn/modules/apex_testing) and read at least the Month of Testing series and [How to Write Good Unit Tests](https://developer.salesforce.com/page/How_to_Write_Good_Unit_Tests) articles. All of these materials are linked under Resources below.
 
 Fundamentally, testing comprises three steps: 
 
@@ -24,11 +24,11 @@ Fundamentally, testing comprises three steps:
  1. Executing that code in a test context, meaning that the code runs within a method annotated with the `@isTest` annotation.
  1. Writing assertions to demonstrate that the results of the code are correct and as expected for the given inputs.
 
-Unit tests that don't contain assertions are often called *smoke tests*. These tests have limited utility, because they show nothing other than that your code does not crash under a specific set of circumstances. They don't prove the code works or does what it's intended to do.
-
 Unit testing principles are quite general, and most Apex code is not special in the sense of requiring unique approaches to create a successful test. Techniques for implementing tests that perform all three steps are taught in the resources we include below.
 
-On Salesforce, all unit tests are executed in an isolated context. In this context, your code cannot see data in your organization, including ordinary records as well as Custom Settings. However, metadata records, including Users and Custom Metadata, are visible. An older annotation, `seeAllData=true`, allows tests to see all data in the Salesforce org. Use of this annotation is **strongly discouraged** for new unit tests, and is considered a very bad practice.
+On Salesforce, all unit tests are executed in an isolated context. In this context, your code cannot see data in your organization, including ordinary records as well as Custom Settings. However, metadata records, including Users and Custom Metadata, are visible. An older annotation, `seeAllData=true`, allows tests to see all data in the Salesforce org. Use of this annotation is **strongly discouraged** for new unit tests, and is considered a very bad practice. It's important instead to follow the first step above, by designing test data as input for your code.
+
+Unit tests that don't contain assertions are often called *smoke tests*. These tests have limited utility, because they show nothing other than that your code does not crash under a specific set of circumstances. They don't prove the code works or does what it's intended to do.
 
 ## Trailhead
 
