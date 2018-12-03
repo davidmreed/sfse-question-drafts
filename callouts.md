@@ -1,6 +1,6 @@
 # Question
 
-*This is a **canonical question and answer** developed by the community to help address common questions. If you've been directed here, or your question has been closed as a duplicate, please look through the resources here and use them to shape more specific questions. To browse all canonical questions and answers, including more unit test resources, navigate to the `canonical-qa` tag.*
+*This is a **canonical question and answer** developed by the community to help address common questions. If you've been directed here, or your question has been closed as a duplicate, please look through the resources here and use them to shape more specific questions. To browse all canonical questions and answers, including more unit test resources, navigate to the [`canonical-qa`](https://salesforce.stackexchange.com/questions/tagged/canonical-qa) tag.*
 
 How do I unit test code that includes a SOAP or REST-based callout, or indirectly calls code that makes a callout? I'm getting an error saying that callouts are not supported.
 
