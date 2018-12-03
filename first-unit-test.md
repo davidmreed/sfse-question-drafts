@@ -1,5 +1,54 @@
-How do I start writing my first unit test? / How do I unit test this code? / Will you write my unit test?
-These questions come up all the time and I personally would love to have a canonical deflection for them to try to stem downvotes, negative interactions, and frustration for the community (myself included).
+# Question
 
-A good canonical answer could collect our favorite resources for writing unit tests (How to Write Good Unit Tests, Trailhead, and the Developer Blog's Month of Testing series are among my favorites). It would try to be a succinct clearinghouse of where to go to get started, not a treatise, and would emphasize that most code is not "special" in the sense of requiring unique techniques to test. Lastly, it would mention in passing the importance of assertions and that unit tests are more than a vehicle to obtain code coverage.
+*This is a **canonical question and answer** developed by the community to help address common questions. If you've been directed here, or your question has been closed as a duplicate, please look through the resources here and use them to shape more specific questions. To browse all canonical questions and answers, including more unit test resources, navigate to the `canonical-qa` tag.*
+
+This canonical question is intended to address these *inspecific* questions by providing a quick summary and links to comprehensive resources:
+
+ - How do I start writing my first unit test? 
+ - How do I unit test this code? 
+ - I need help writing this unit test.
+ 
+Salesforce Stack Exchange looks for detailed, specific questions that the community can help you with, and can't help with writing a unit test from scratch. We feel that working with the resources below can help you get started, and we encourage you to make an attempt to write your test and return to SFSE with your specific questions when you encounter challenges you can't resolve.
+
+# Answer
+
+This answer is not intended to teach you everything about writing unit tests, nor to specifically answer every question, but to provide a quick summary and links to the resources that will help you move forward.
+
+## Overview
+
+Unit (and integration) testing is a large, complex topic. If you've never written a unit test before, we strongly encourage you to complete the Apex Testing Trailhead module and read at least the Month of Testing series and How to Write Good Unit Tests articles. All of these materials are linked under Resources below.
+
+Fundamentally, testing comprises three steps: 
+
+ 1. Designing inputs to your code - test data - to ensure that a specific logical path is executed. 
+ 1. Executing that code in a test context, meaning that the code runs within a method annotated with the `@isTest` annotation.
+ 1. Writing assertions to demonstrate that the results of the code are correct and as expected for the given inputs.
+
+Unit tests that don't contain assertions are often called *smoke tests*. These tests have limited utility, because they show nothing other than that your code does not crash under a specific set of circumstances. They don't prove the code works or does what it's intended to do.
+
+Unit testing principles are quite general, and most Apex code is not special in the sense of requiring unique approaches to create a successful test. Techniques for implementing tests that perform all three steps are taught in the resources we include below.
+
+On Salesforce, all unit tests are executed in an isolated context. In this context, your code cannot see data in your organization, including ordinary records as well as Custom Settings. However, metadata records, including Users and Custom Metadata, are visible. An older annotation, `seeAllData=true`, allows tests to see all data in the Salesforce org. Use of this annotation is **strongly discouraged** for new unit tests, and is considered a very bad practice.
+
+## Trailhead
+
+ - [Apex Testing](https://trailhead.salesforce.com/content/learn/modules/apex_testing)
+ - [Apex REST Callouts](https://trailhead.salesforce.com/en/content/learn/modules/apex_integration_services/apex_integration_rest_callouts) and [Apex SOAP Callouts](https://trailhead.salesforce.com/content/learn/modules/apex_integration_services/apex_integration_soap_callouts) cover the use of mocking to test callout code.
+ 
+ ## Apex Developer Guide
+ 
+  - [Testing Apex](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing.htm)
+ 
+ ## Blogs and Articles
+ 
+  - [How to Write Good Unit Tests](https://developer.salesforce.com/page/How_to_Write_Good_Unit_Tests)
+  - Month of Testing series from the Salesforce Developers blog.
+     - Part 1: [Why We Test](https://developer.salesforce.com/blogs/2018/05/why-we-test.html)
+     - Part 2: [Apex Testing in Depth](https://developer.salesforce.com/blogs/2018/05/month-of-testing-apex-testing-in-depth-part-2-of-3.html)
+     - Part 3: [Advanced Topics in Salesforce Unit Testing](https://developer.salesforce.com/blogs/2018/05/month-of-testing-advanced-topics-in-salesforce-unit-testing-part-3-of-3.html)
+     
+## Third-Party Testing Frameworks (Advanced Topics)
+
+ - [ApexMocks](https://github.com/financialforcedev/fflib-apex-mocks), an open-source mocking framework for Apex.
+ - [Force-DI](https://github.com/afawcett/force-di), a framework for pervasive dependency injection.
 
