@@ -13,4 +13,4 @@ To test code that makes callouts, you must develop a Mock class, which mocks the
 To learn how to develop Mock classes, complete these Trailhead modules:
 
  - [Apex REST Callouts](https://trailhead.salesforce.com/en/content/learn/modules/apex_integration_services/apex_integration_rest_callouts) 
- - [Apex SOAP Callouts](https://trailhead.salesforce.com/content/learn/modules/apex_integration_services/apex_integration_soap_callouts) cover the use of mocking to test callout code.
+ - [Apex SOAP Callouts](https://trailhead.salesforce.com/content/learn/modules/apex_integration_services/apex_integration_soap_callouts) 
