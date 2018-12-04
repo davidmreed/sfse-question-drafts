@@ -11,3 +11,9 @@ This canonical question is intended to address several classes of common questio
 
 # Answer
 
+Code coverage is a measurement of how many unique lines of your code are executed while the automated tests are running. Code coverage percentage is a calculation of the number of covered lines divided by the sum of the number of covered lines and uncovered lines. Only executable lines of code are included. (Comments and blank lines aren’t counted.) System.debug() statements and curly brackets are excluded when they appear alone on one line. Multiple statements on one line are counted as one line for the purpose of code coverage. If a statement consists of multiple expressions that are written on multiple lines, each line is counted for code coverage.
+
+In order to deploy in Production or install an app-exchange package , the minimum code coverage requirement is 75% . While writing unit tests the main emphasis should be given on actually testing the logic /behaviour of the block by adding proper approriate assert statements to make sure the code's behaviour is same as expected. Ideally a system should strive to have 100% code coverage. 
+
+To increase your code coverage you have to write functional unit-tests for the existing classes which have uncovered block of code or for the new classes you have added. 
+
