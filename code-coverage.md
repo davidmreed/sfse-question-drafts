@@ -17,3 +17,7 @@ In order to deploy in Production or install an app-exchange package , the minimu
 
 To increase your code coverage you have to write functional unit-tests for the existing classes which have uncovered block of code or for the new classes you have added. 
 
+# Resoures
+
+[`How Is Code Coverage Calculated?`](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_code_coverage_intro.htm)
+
