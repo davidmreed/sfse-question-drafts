@@ -18,13 +18,15 @@ This answer is not intended to teach you everything about writing unit tests, no
 
 Unit (and integration) testing is a big topic, but it starts with a small set of principles. If you've never written a unit test before, we strongly encourage you to complete the [Apex Testing Trailhead module](https://trailhead.salesforce.com/content/learn/modules/apex_testing) and read at least the Month of Testing series and [How to Write Good Unit Tests](https://developer.salesforce.com/page/How_to_Write_Good_Unit_Tests) articles. All of these materials are linked under Resources below.
 
+It's a common mistake to think of unit tests, and code coverage, as exchangeable resources. But unit tests aren't off-the-shelf components. Each unit test is designed for a particular piece of code, and validates and documents specific aspects of its operation.
+
 Fundamentally, testing comprises three steps: 
 
  1. Designing inputs to your code - test data - to ensure that a specific logical path is executed. 
  1. Executing that code in a test context, meaning that the code runs within a method annotated with the `@isTest` annotation.
  1. Writing assertions to demonstrate that the results of the code are correct and as expected for the given inputs.
 
-Then, all code that is executed under step (2) is counted as *covered* under Salesforce's code coverage metrics. 
+Then, all code that is executed under step (2) is counted as *covered* under Salesforce's code coverage metrics. Code coverage is a *side effect* of high quality unit tests. Salesforce uses code coverage as a proxy to measure the presence of unit tests in your deployments.
 
 Unit testing principles are quite general, and most Apex code is not special in the sense of requiring unique approaches to create a successful test. Techniques for implementing tests that perform all three steps are taught in the resources we include below.
 
