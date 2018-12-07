@@ -10,11 +10,11 @@ Briefly summarize and link to documentation regarding the machinery of Test.stop
 
 # Resources
 
-*[Testing Batch Apex](https://trailhead.salesforce.com/en/content/learn/modules/asynchronous_apex/async_apex_batch#Tdxn4tBK-heading7)
+[Testing Batch Apex](https://trailhead.salesforce.com/en/content/learn/modules/asynchronous_apex/async_apex_batch#Tdxn4tBK-heading7)
 
-*[Testing Future Methods](https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_future_methods#Tdxn4tBK-heading5)
+[Testing Future Methods](https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_future_methods#Tdxn4tBK-heading5)
 
-*[Testing Queueable Apex](https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_queueable#Tdxn4tBK-heading6)
+[Testing Queueable Apex](https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_queueable#Tdxn4tBK-heading6)
 
-*[Testing Scheduled Apex](https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_scheduled#Tdxn4tBK-heading7)
+[Testing Scheduled Apex](https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_scheduled#Tdxn4tBK-heading7)
 
