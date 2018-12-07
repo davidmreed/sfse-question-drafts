@@ -15,7 +15,7 @@ As discussed earlier,  in normal scenario there is no SLA for Async Apex, which 
     Test.startTest();
     AsyncUtil.callAsyncMethods();
     Test.stopTest();
-    System.assertEquals(expected, actualChangesInAsync]);
+    System.assertEquals(expected, actualChangesInAsync);
 
 
 Briefly summarize and link to documentation regarding the machinery of Test.stopTest() and Test.startTest() as they relate to testing asynchronous code. Summarize issue surrounding testing functionality that could fire multiple batch invocations and multi-level asynchrony (schedulable calls batch, etc), and point towards options for structuring tests for this type of code.
