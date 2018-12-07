@@ -8,7 +8,9 @@ I'm testing asynchronous code - like Batch Apex, Queueable Apex, `@future` metho
 
 Asynchronous apex are the magic tools in Salesforce platform that allow us to do extra ordinary stuffs which can’t be done in synchronous transaction.  Let it be making a callout after a DML , or processing millions of records or chaining sequence of operations or running cron jobs at a given time. Apex asynchronous can get it done. As the name suggests Asynchronous Apex is not executed as soon as you command it to run, it runs in near future after current transaction has been committed in the database.  There is no SLA in Asynchronous Apex , thus we don’t actually know when they will get executed . 
 
-##Use of Start Test and Stop Test :  As discussed earlier,  in normal scenario there is no SLA for Async Apex, which holds true even while testing. Thus framework has provided a way to make all asynchronous code as synchronous for testing.  We enclose our test code between the startTest and stopTest test methods. The system collects all asynchronous calls made after the startTest. When stopTest is executed, all these collected asynchronous processes are then run synchronously. We can then assert that the asynchronous call operated properly.
+## Use of Start Test and Stop Test 
+
+As discussed earlier,  in normal scenario there is no SLA for Async Apex, which holds true even while testing. Thus framework has provided a way to make all asynchronous code as synchronous for testing.  We enclose our test code between the startTest and stopTest test methods. The system collects all asynchronous calls made after the startTest. When stopTest is executed, all these collected asynchronous processes are then run synchronously. We can then assert that the asynchronous call operated properly.
 
 
 
