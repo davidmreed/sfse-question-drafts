@@ -12,6 +12,10 @@ Asynchronous apex are the magic tools in Salesforce platform that allow us to do
 
 As discussed earlier,  in normal scenario there is no SLA for Async Apex, which holds true even while testing. Thus framework has provided a way to make all asynchronous code as synchronous for testing.  We enclose our test code between the startTest and stopTest test methods. The system collects all asynchronous calls made after the startTest. When stopTest is executed, all these collected asynchronous processes are then run synchronously. We can then assert that the asynchronous call operated properly.
 
+    Test.startTest();
+    AsyncUtil.callAsyncMethods();
+    Test.stopTest();
+    System.assertEquals(expected, actualChangesInAsync]);
 
 
 Briefly summarize and link to documentation regarding the machinery of Test.stopTest() and Test.startTest() as they relate to testing asynchronous code. Summarize issue surrounding testing functionality that could fire multiple batch invocations and multi-level asynchrony (schedulable calls batch, etc), and point towards options for structuring tests for this type of code.
