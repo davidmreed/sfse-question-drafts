@@ -8,3 +8,10 @@ I'm testing asynchronous code - like Batch Apex, Queueable Apex, `@future` metho
 
 Briefly summarize and link to documentation regarding the machinery of Test.stopTest() and Test.startTest() as they relate to testing asynchronous code. Summarize issue surrounding testing functionality that could fire multiple batch invocations and multi-level asynchrony (schedulable calls batch, etc), and point towards options for structuring tests for this type of code.
 
+# Resources
+
+[Testing Batch Apex] (https://trailhead.salesforce.com/en/content/learn/modules/asynchronous_apex/async_apex_batch#Tdxn4tBK-heading7)
+[Testing Future Methods] (https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_future_methods#Tdxn4tBK-heading5)
+[Testing Queueable Apex] (https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_queueable#Tdxn4tBK-heading6)
+[Testing Scheduled Apex] (https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_scheduled#Tdxn4tBK-heading7)
+
