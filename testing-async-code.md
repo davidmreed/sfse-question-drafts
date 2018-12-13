@@ -33,25 +33,27 @@ Following `Test.stopTest()`, our code can evaluate the results of the executed a
 
 ### Nested Asynchronous Code
 
-The collection and synchronous execution of Asynchronous Apex applies only between `Test.startTest()` and `Test.stopTest()`. Any further asynchronous code that's enqueued *by* the asynchronous operations that are executed at `Test.stopTest()` is *not* executed synchronously in the context of the unit test. For example, if we're working with the following, contrived, code:
+The collection and synchronous execution of Asynchronous Apex applies only between `Test.startTest()` and `Test.stopTest()`. Any further asynchronous code that's enqueued *by* the asynchronous operations that are executed at `Test.stopTest()` is *not* executed synchronously in the context of the unit test. For example, if we're working with the following code:
 
-    @future 
-    public static void updateAccount(Account a) {
-        a.Description = 'Contacted the customer';
-        update a;
-
-        updateAssociatedContacts(a);
-    }
-
-    @future
-    public static void updateAssociatedContacts(Account a) {
-        List<Contacts> cts = [SELECT Id FROM Contact WHERE AccountId = :a.Id];
-        for (Contact c : cts) {
-            cts.Description = 'Account has been contacted';
+    public class MySchedulable implements Schedulable { 
+        private Account a;
+        
+        public MySchedulable(Account a) {
+            this.a = a;
         }
-        update cts;
+        
+        public void execute(SchedulableContext sc) {
+            a.Description = 'Contacted the customer');
+            update a;
+
+            Database.executeBatch(new ContactsUpdaterBatch(a), 200);
+        }
     }
-    
+
+    public class ContactsUpdaterBatch implements Database.Batchable<sObject> { 
+        // ContactsUpdaterBatch updates the Description field on Contact (elided for brevity).
+    }
+   
 A unit test structured like this will not work:
 
     @isTest
@@ -59,7 +61,7 @@ A unit test structured like this will not work:
         Account a = [SELECT Id FROM Account LIMIT 1];
 
         Test.startTest();
-        updateAccount(a);
+        System.schedule('TEST_MySchedulable', '0 0 * * * ?', new MySchedulable(a));
         Test.stopTest();
 
         a = [SELECT Id, Description, (SELECT Id, Description FROM Contacts) FROM Account WHERE Id = :a.Id];
@@ -70,9 +72,9 @@ A unit test structured like this will not work:
         }
     }
     
-The second assertion will fail, because the `@future` method `updateAssociatedContacts()`, fired from *within* the asynchronous `updateAccount()`, will not execute during test context.
+The second assertion will fail, because the batch class `ContactsUpdateBatch`, fired from *within* the asynchronous `MySchedulable`, will not execute during test context - even though the first layer, `MySchedulable.execute()`, is called at `Test.stopTest()`.
 
-Another common scenario in which this occurs is a unit test that executes a Scheduled Apex class which then enqueues Batch Apex. In that scenario, the Batch Apex operation will *not* execute during the context of the unit test.
+The same pattern applies to other multi-layer asynchronous code, including `@future` methods and Queueables.
 
 There's no work-around to allow multi-level asynchronous code to execute in test context. Instead, the tests must be constructed to validate functionality without requiring this, by decomposing the tests to validate smaller units and/or using techniques like dependency injection to validate the connections between different asynchronous code units.
 
@@ -84,11 +86,7 @@ Batches that execute across metadata objects, such as `User`, are especially vul
 
 # Resources
 
-[Testing Batch Apex](https://trailhead.salesforce.com/en/content/learn/modules/asynchronous_apex/async_apex_batch#Tdxn4tBK-heading7)
+## Trailhead Modules
 
-[Testing Future Methods](https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_future_methods#Tdxn4tBK-heading5)
-
-[Testing Queueable Apex](https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_queueable#Tdxn4tBK-heading6)
-
-[Testing Scheduled Apex](https://trailhead.salesforce.com/content/learn/modules/asynchronous_apex/async_apex_scheduled#Tdxn4tBK-heading7)
-
+- [Asynchronous Apex](https://trailhead.salesforce.com/en/content/learn/modules/asynchronous_apex)
+  - Includes modules on Future, Batch, Queueable, and Scheduled Apex, each of which describes testing approaches.
