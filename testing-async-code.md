@@ -6,19 +6,81 @@ I'm testing asynchronous code - like Batch Apex, Queueable Apex, `@future` metho
 
 # Answer
 
-Asynchronous apex are the magic tools in Salesforce platform that allow us to do extra ordinary stuffs which can’t be done in synchronous transaction.  Let it be making a callout after a DML , or processing millions of records or chaining sequence of operations or running cron jobs at a given time. Apex asynchronous can get it done. As the name suggests Asynchronous Apex is not executed as soon as you command it to run, it runs in near future after current transaction has been committed in the database.  There is no SLA in Asynchronous Apex , thus we don’t actually know when they will get executed . 
+Asynchronous Apex includes all of the methods for executing code on the Salesforce platform outside a synchronous transaction. These tools make it possible to perform operations like making a callout after DML, processing millions of records in batches, chaining sequences of operations, or running code on a schedule. Asynchronous Apex includes:
 
-### Use of Start Test and Stop Test 
+ - `@future` methods.
+ - Batch Apex
+ - Queueable Apex
+ - Schedulable Apex
 
-As discussed earlier,  in normal scenario there is no SLA for Async Apex, which holds true even while testing. Thus framework has provided a way to make all asynchronous code as synchronous for testing.  We enclose our test code between the startTest and stopTest test methods. The system collects all asynchronous calls made after the startTest. When stopTest is executed, all these collected asynchronous processes are then run synchronously. We can then assert that the asynchronous call operated properly.
+Because these constructs are by nature asynchronous, do not come with an SLA, and can be executed by Salesforce based upon overall system load and other considerations, we cannot typically guarantee exactly when they will be executed. This requires some changes to how we build and structure unit tests for code that is built within or makes use of any of the four asynchronous code types mentioned above.
+
+### Use of `Test.startTest()` and `Test.stopTest()` 
+
+Because of the way Asynchronous Apex works, any asynchronous code - a future method is a useful example - will not be executed during the confines of an Apex unit test. A unit test forms a single transaction, and asynchronous code enqueued within that transaction cannot be executed until the transaction commits successfully. 
+
+For this reason, Salesforce has provided a framework to force asynchronous code to execute synchronously for testing. 
+
+We enclose our test code between `Test.startTest()` and `Test.stopTest()`. The system collects all asynchronous calls made after `startTest()`. When `stopTest()` is executed, these collected asynchronous processes are then run synchronously. 
+
+Following `Test.stopTest()`, our code can evaluate the results of the executed asynchronous code and make assertions to validate its behavior.
 
     Test.startTest();
-    AsyncUtil.callAsyncMethods();
+    AsyncUtil.executeFutureMethod();
     Test.stopTest();
+
     System.assertEquals(expected, actualChangesInAsync);
 
+### Nested Asynchronous Code
 
-Briefly summarize and link to documentation regarding the machinery of Test.stopTest() and Test.startTest() as they relate to testing asynchronous code. Summarize issue surrounding testing functionality that could fire multiple batch invocations and multi-level asynchrony (schedulable calls batch, etc), and point towards options for structuring tests for this type of code.
+The collection and synchronous execution of Asynchronous Apex applies only between `Test.startTest()` and `Test.stopTest()`. Any further asynchronous code that's enqueued *by* the asynchronous operations that are executed at `Test.stopTest()` is *not* executed synchronously in the context of the unit test. For example, if we're working with the following, contrived, code:
+
+    @future 
+    public static void updateAccount(Account a) {
+        a.Description = 'Contacted the customer';
+        update a;
+
+        updateAssociatedContacts(a);
+    }
+
+    @future
+    public static void updateAssociatedContacts(Account a) {
+        List<Contacts> cts = [SELECT Id FROM Contact WHERE AccountId = :a.Id];
+        for (Contact c : cts) {
+            cts.Description = 'Account has been contacted';
+        }
+        update cts;
+    }
+    
+A unit test structured like this will not work:
+
+    @isTest
+    public static void updating_accounts_updates_contacts() {
+        Account a = [SELECT Id FROM Account LIMIT 1];
+
+        Test.startTest();
+        updateAccount(a);
+        Test.stopTest();
+
+        a = [SELECT Id, Description, (SELECT Id, Description FROM Contacts) FROM Account WHERE Id = :a.Id];
+
+        System.assertEquals('Contacted the customer', a.Description, 'found correct description');
+        for (Contact c : a.Contacts) {
+            System.assertEquals('Account has been contacted', c.Description, 'found correct Contact description');
+        }
+    }
+    
+The second assertion will fail, because the `@future` method `updateAssociatedContacts()`, fired from *within* the asynchronous `updateAccount()`, will not execute during test context.
+
+Another common scenario in which this occurs is a unit test that executes a Scheduled Apex class which then enqueues Batch Apex. In that scenario, the Batch Apex operation will *not* execute during the context of the unit test.
+
+There's no work-around to allow multi-level asynchronous code to execute in test context. Instead, the tests must be constructed to validate functionality without requiring this, by decomposing the tests to validate smaller units and/or using techniques like dependency injection to validate the connections between different asynchronous code units.
+
+### Batch Class Execution
+
+Unit test context permits only one batch execution (call to `execute()`) to occur in a single unit test. While in most cases your unit tests would not insert more than one batch's worth of test data, it is possible to do so. This will result in an exception being thrown. Your unit test needs to guarantee that only one batch executes, either by controlling the batch size of the test data set or both.
+
+Batches that execute across metadata objects, such as `User`, are especially vulnerable to this challenge. While unit tests for these Batch classes may succeed in developer orgs or scratch orgs that have tiny record sets, they will fail when deployed to a larger production org. In many cases, these batches need at least a light dependency injection strategy to allow the unit test to control the queries executed by `start()`. For example, the query might be exposed in a `@TestVisible` instance variable to allow a unit test to inject a more restricted query, or adding an `Id` set to restrict the query results.
 
 # Resources
 
