@@ -8,7 +8,7 @@ How do I unit test code that includes a SOAP or REST-based callout, or indirectl
 
 As part of the isolation of the test context, Salesforce does not allow your code to make REST or SOAP callouts during test execution. This includes all code that's executed in test context, even if it is executed indirectly by the code you're explicitly testing, and it includes callouts to Salesforce itself.
 
-To test code that makes callouts, you must develop a Mock class, which mocks the remote server during the test and constructs an appropriate response that's returned to your code.
+To test code that makes callouts, you must develop a Mock class, which mocks the remote server during the test and constructs an appropriate response that's returned to your code. Mock classes may generate a response in code (for example, by constructing objects, serializing them, and returning the resulting JSON), or by returning a result stored in a Static Resource.
 
 To learn how to develop Mock classes, complete these Trailhead modules:
 
