@@ -9,3 +9,6 @@ This canonical question is intended to address several classes of common questio
 - What are some of the techniques one uses to manage coverage during the deployment process?
 
 # Answer
+
+Salesforce imposes specific requirements for *code coverage* that must be met when deploying new or changed code to a production org. Code coverage requirements help to ensure that your code includes high quality tests that validate its behavior.
+
