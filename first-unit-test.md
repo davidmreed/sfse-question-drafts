@@ -38,6 +38,7 @@ Unit tests that don't contain assertions are often called *smoke tests*. These t
 
 ### Trailhead
 
+ - [Unit Testing on the Lightning Platform](https://trailhead.salesforce.com/en/content/learn/modules/unit-testing-on-the-lightning-platform), the newest and most comprehensive module on unit testing offered by Trailhead.
  - [Apex Testing](https://trailhead.salesforce.com/content/learn/modules/apex_testing)
  - [Apex REST Callouts](https://trailhead.salesforce.com/en/content/learn/modules/apex_integration_services/apex_integration_rest_callouts) and [Apex SOAP Callouts](https://trailhead.salesforce.com/content/learn/modules/apex_integration_services/apex_integration_soap_callouts) cover the use of mocking to test callout code.
  
@@ -47,7 +48,6 @@ Unit tests that don't contain assertions are often called *smoke tests*. These t
  
  ### Blogs and Articles
  
-  - [How to Write Good Unit Tests](https://developer.salesforce.com/page/How_to_Write_Good_Unit_Tests)
   - Month of Testing series from the Salesforce Developers blog.
      - Part 1: [Why We Test](https://developer.salesforce.com/blogs/2018/05/why-we-test.html)
      - Part 2: [Apex Testing in Depth](https://developer.salesforce.com/blogs/2018/05/month-of-testing-apex-testing-in-depth-part-2-of-3.html)
