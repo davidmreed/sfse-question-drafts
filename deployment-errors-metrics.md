@@ -10,5 +10,8 @@ This canonical question is intended to address several classes of common questio
 
 # Answer
 
-Salesforce imposes specific requirements for *code coverage* that must be met when deploying new or changed code to a production org. Code coverage requirements help to ensure that your code includes high quality tests that validate its behavior.
+Salesforce imposes specific requirements for *code coverage* that must be met when deploying new or changed code to a production org. Code coverage requirements help to ensure that your code includes high quality tests that validate its behavior; in this sense they are a proxy metric.
+
+The basic code coverage metric is **75% total coverage**. This means that 75% of the executable lines of Apex across your org are covered when unit tests are run, and the tests pass. You must meet this metric when performing a deployment to your production Salesforce org that includes Apex. 
+
 
