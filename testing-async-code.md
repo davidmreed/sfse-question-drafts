@@ -17,11 +17,10 @@ Because these constructs are by nature asynchronous, do not come with an SLA, an
 
 ### Use of `Test.startTest()` and `Test.stopTest()` 
 
-Because of the way Asynchronous Apex works, any asynchronous code - a future method is a useful example - will not be executed during the confines of an Apex unit test. A unit test forms a single transaction, and asynchronous code enqueued within that transaction cannot be executed until the transaction commits successfully. 
+Because of the way Asynchronous Apex works, any asynchronous code - a future method is a useful example - will not be executed during the confines of an Apex unit test unless we take specific action. A unit test forms a single transaction, and asynchronous code enqueued within that transaction cannot be executed until the transaction commits successfully. 
 
-For this reason, Salesforce has provided a framework to force asynchronous code to execute synchronously for testing. 
-
-We enclose our test code between `Test.startTest()` and `Test.stopTest()`. The system collects all asynchronous calls made after `startTest()`. When `stopTest()` is executed, these collected asynchronous processes are then run synchronously. 
+For this reason, Salesforce has provided a framework to force asynchronous code to execute synchronously for testing:
+We enclose our test code between `Test.startTest()` and `Test.stopTest()`. The system collects all asynchronous calls made after `startTest()`. When `stopTest()` is executed, these collected asynchronous processes are then run synchronously and complete before control returns to our code.
 
 Following `Test.stopTest()`, our code can evaluate the results of the executed asynchronous code and make assertions to validate its behavior.
 
@@ -78,11 +77,15 @@ The same pattern applies to other multi-layer asynchronous code, including `@fut
 
 There's no work-around to allow multi-level asynchronous code to execute in test context. Instead, the tests must be constructed to validate functionality without requiring this, by decomposing the tests to validate smaller units and/or using techniques like dependency injection to validate the connections between different asynchronous code units.
 
+The example above can be effectively tested by decomposition: we can write separate unit tests against the Schedulable and the Batchable to validate their operation. The Schedulable test would validate the update to the Account and that a batch has been enqueued; the Batch test would validate the associated Contact updates. 
+
 ### Batch Class Execution
 
 Unit test context permits only one batch execution (call to `execute()`) to occur in a single unit test. While in most cases your unit tests would not insert more than one batch's worth of test data, it is possible to do so. This will result in an exception being thrown. Your unit test needs to guarantee that only one batch executes, either by controlling the batch size of the test data set or both.
 
-Batches that execute across metadata objects, such as `User`, are especially vulnerable to this challenge. While unit tests for these Batch classes may succeed in developer orgs or scratch orgs that have tiny record sets, they will fail when deployed to a larger production org. In many cases, these batches need at least a light dependency injection strategy to allow the unit test to control the queries executed by `start()`. For example, the query might be exposed in a `@TestVisible` instance variable to allow a unit test to inject a more restricted query, or adding an `Id` set to restrict the query results.
+Batches that execute across metadata objects, such as `User`, are especially vulnerable to this challenge. While unit tests for these Batch classes may succeed in developer orgs or scratch orgs that have tiny record sets, they will fail when deployed to a larger production org. In many cases, these batches need at least a light dependency injection strategy to allow the unit test to control the queries executed by `start()`. 
+
+For example, the query might be exposed in a `@TestVisible` instance variable to allow a unit test to inject a more restricted query, or adding an `Id` set to restrict the query results.
 
 # Resources
 
