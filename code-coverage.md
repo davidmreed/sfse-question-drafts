@@ -15,11 +15,9 @@ Code coverage is a measurement of how many unique lines of your code are execute
 
 For purposes of calculating code coverage, only executable lines of code are counted, whether covered or uncovered. Comments and blank lines are not counted, and `System.debug()` statements and curly braces that appear alone on one line are also not counted.
 
-In order to perform a deployment that includes Apex or install an AppExchange package in production, the minimum code coverage metric of 75% coverage must be achieved. 
+While writing unit tests, the main emphasis should be given on actually testing the logic and behavior of the block by designing input data to ensure the code path executes and writing assertions to make sure the code's behavior is as expected. Code coverage is a side effect of this testing process. 
 
-While writing unit tests the main emphasis should be given on actually testing the logic and behaviour of the block by adding  appropriate assertions to make sure the code's behaviour is same as expected. Ideally, a system should strive to have 100% code coverage. 
-
-To increase your code coverage you have to write functional unit-tests for the existing classes which have uncovered block of code or for the new classes you have added. 
+Fundamentally, to increase your code coverage, you must write functional unit tests for code paths that are not currently covered. For more community resources on writing high quality unit tests, please see [this canonical question](); read the rest of this question to learn about common coverage scenarios.
 
 ## Commonly Encountered Scenarios
 
@@ -29,7 +27,11 @@ You may find that your unit tests only cover one branch of a control statement, 
 
 (FIXME: include a code coverage screenshot example)
 
-In many cases, you should expect to cover different branches of your logic using *multiple* unit tests, each of which performs different setup and data creation steps to execute and validate a different code pathway. Trying to test too much in a single test method tends to make unit tests more difficult to understand and more fragile.
+In many cases, you should expect to cover different branches of your logic using *multiple* unit tests, each of which performs different setup and data creation steps to execute and validate a different code pathway. In many situations, you won't be able to ensure that diverging logical paths all execute in a single unit test.
+
+Additionally, trying to test too much in a single test method tends to make unit tests more difficult to understand and more fragile.
+
+To cover multiple logical branches, design multiple unit tests, each of whose test data is designed to cause the execution of a specific code path.
 
 ### Loops
 
@@ -39,9 +41,13 @@ Code coverage that appears to "stop" and not enter the body of a loop, such as a
         a.Description = 'Here are some more details.';
     }
     
-After running unit tests, if the line starting with `a.Description` is not covered, it's an indication that the loop never begins iterating, because the query returns no records. This is a failure of the test data setup: records weren't created that would exercise the functionality of this specific code path.
+After running unit tests, if the line starting with `a.Description` is not covered, it's an indication that the loop never begins iterating because the query returns no records. This is a failure of the test data setup: records weren't created that would exercise the functionality of this specific code path.
+
+The same interpretation applies to `while` loops.
 
 # Resources
 
 - [How Is Code Coverage Calculated?](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_code_coverage_intro.htm)
+
+For general resources on how to write high quality unit tests that generate code coverage, see [this canonical question]().
 
