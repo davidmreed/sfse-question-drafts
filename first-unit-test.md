@@ -42,17 +42,21 @@ Unit tests that don't contain assertions are often called *smoke tests*. These t
  - [Apex Testing](https://trailhead.salesforce.com/content/learn/modules/apex_testing)
  - [Apex REST Callouts](https://trailhead.salesforce.com/en/content/learn/modules/apex_integration_services/apex_integration_rest_callouts) and [Apex SOAP Callouts](https://trailhead.salesforce.com/content/learn/modules/apex_integration_services/apex_integration_soap_callouts) cover the use of mocking to test callout code.
  
- ### Apex Developer Guide
+### Apex Developer Guide
  
   - [Testing Apex](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_testing.htm)
  
- ### Blogs and Articles
+### Blogs and Articles
  
   - Month of Testing series from the Salesforce Developers blog.
      - Part 1: [Why We Test](https://developer.salesforce.com/blogs/2018/05/why-we-test.html)
      - Part 2: [Apex Testing in Depth](https://developer.salesforce.com/blogs/2018/05/month-of-testing-apex-testing-in-depth-part-2-of-3.html)
      - Part 3: [Advanced Topics in Salesforce Unit Testing](https://developer.salesforce.com/blogs/2018/05/month-of-testing-advanced-topics-in-salesforce-unit-testing-part-3-of-3.html)
-     
+
+### Dreamforce Video Content
+ 
+  - [Get Your Code Coverage to 100%](https://www.salesforce.com/video/3594314/) with Patrick Connelly. This talk covers intermediate-level testing topics and best practices.
+
 ## Third-Party Testing Frameworks (Advanced Topics)
 
  - [ApexMocks](https://github.com/financialforcedev/fflib-apex-mocks), an open-source mocking framework for Apex.
