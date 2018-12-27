@@ -6,7 +6,7 @@ I'm testing asynchronous code - like Batch Apex, Queueable Apex, `@future` metho
 
 # Answer
 
-Asynchronous Apex includes all of the methods for executing code on the Salesforce platform outside a synchronous transaction. These tools make it possible to perform operations like making a callout after DML, processing millions of records in batches, chaining sequences of operations, or running code on a schedule. Asynchronous Apex includes:
+Asynchronous Apex includes all of the methods for executing code on the Salesforce platform outside a synchronous transaction, including:
 
  - `@future` methods.
  - Batch Apex
