@@ -23,9 +23,39 @@ Fundamentally, to increase your code coverage, you must write functional unit te
 
 ### Control Structures
 
-You may find that your unit tests only cover one branch of a control statement, like an `if`/`else` or `switch on` construct.
+You may find that your unit tests only cover one branch of a control statement, like an `if`/`else` or `switch on` construct. Here's an example of a unit test that causes this issue.
 
-(FIXME: include a code coverage screenshot example)
+#### Main Class
+
+    public class SFSEExample {
+        public static void updateAccountDetails(Account a) {
+            if (a.Industry == 'Finance') {
+                a.Description = 'NOTE: Finance Industry. ' + a.Description;
+            } else {
+                a.Description = 'Non-finance industry. ' + a.Description;
+            }
+        }
+    }
+
+#### Test Class
+
+    @isTest
+    public class SFSEExample_TEST {
+     @isTest
+        public static void runTest() {
+            Account a = new Account(Name = 'Test', Industry = 'Finance', Description = 'Desc');
+            Test.startTest();
+            SFSEExample.updateAccountDetails(a);
+            Test.stopTest();
+            System.assertEquals('NOTE: Finance Industry. Desc', a.Description);
+        }
+    }
+    
+#### Code Coverage
+
+[[ IMAGE HERE ]]
+
+Note that only one code path is covered by this unit test.
 
 In many cases, you should expect to cover different branches of your logic using *multiple* unit tests, each of which performs different setup and data creation steps to execute and validate a different code pathway. In many situations, you won't be able to ensure that diverging logical paths all execute in a single unit test.
 
