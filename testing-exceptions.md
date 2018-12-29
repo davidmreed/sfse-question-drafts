@@ -71,7 +71,54 @@ Now, we guarantee that we are passing the test only with the right exception bei
             System.assert(false, 'caught an incorrect exception: ' + e.getMessage());
         }
         
-  This is a cosmetic choice, however; we're secure in the unit test functionality either way.
+This is a cosmetic choice, however; we're secure in the unit test functionality either way.
   
-  ## Testing an Exception Handler (Generating Exceptions in Test Context)
+## Testing an Exception Handler (Generating Exceptions in Test Context)
 
+The other side of exception testing is validating the behavior of, and getting code coverage for, exception handlers in production code. Noting at the outside that this is a complex and case-specific area, let's look again at a simple example.
+
+    public static void performUpdates(List<Account> accounts) {
+        for (Account a : accounts) {
+            if (a.Industry == 'Finance') {
+                a.Description = 'NOTE: client in the finance industry.';
+            }
+        }
+
+        try {
+            update accounts;
+        } catch (DMLException e) {
+            LoggingUtil.postErrorLogs(accounts, e);
+        }
+    }
+    
+Now, this is not very good code from an enterprise pattern standpoint, but it's representative of real Apex that's used in Salesforce orgs every day. So how do we approach testing this exception handler, and getting to that 100% code coverage metric?
+
+### Is the exception handler necessary?
+
+If there's no catchable exception that will actually be thrown by the code in the `catch()` block, remove the exception handler entirely.
+
+    List<Accounts> acts;
+    try {
+        acts = [SELECT Id, Name FROM Account WHERE Name = 'Amalgamated Industries'];
+    } catch (Exception e) {
+        // do something
+    }
+    
+This code
+
+ 1. Cannot be tested, because we cannot cause the query to fail in test context.
+ 2. Is useless, because there are no catchable exceptions that will be thrown from this query. The only exception this query could cause is a `LimitsException`, which cannot be caught.
+ 
+Here, the solution is to delete the exception handler.
+
+Similarly, if the exception handler can be removed by implementing logic to prevent an exceptional condition, it's in many cases superior to do so. For example, a coder more familiar with a an exception-heavy language like Python might write a pattern like this:
+
+    try {
+        return o.get('Parent__r').get('Name');
+    } catch (NullPointerException e) {
+        return null;
+    }
+ 
+ This isn't idiomatic Apex - we shouldn't throw an exception here. We should simply check for `null` to Look Before We Leap.
+ 
+     return (o.get('Parent__r') != null ? o.get('Parent__r').get('Name') : null);
