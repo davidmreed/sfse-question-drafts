@@ -111,7 +111,7 @@ This code
  
 Here, the solution is to delete the exception handler.
 
-Similarly, if the exception handler can be removed by implementing logic to prevent an exceptional condition, it's in many cases superior to do so. For example, a coder more familiar with a an exception-heavy language like Python might write a pattern like this:
+Similarly, if the exception handler can be removed by implementing logic to prevent an exceptional condition, it's in many cases superior to do so. For example, a developer more familiar with an exception-heavy language like Python might write a pattern like this:
 
     try {
         return o.get('Parent__r').get('Name');
@@ -119,6 +119,6 @@ Similarly, if the exception handler can be removed by implementing logic to prev
         return null;
     }
  
- This isn't idiomatic Apex - we shouldn't throw an exception here. We should simply check for `null` to Look Before We Leap.
+ This isn't idiomatic Apex. While it will work, and we could likely unit-test it by tailoring test data to this situation, it's easier to simply check for `null` to Look Before We Leap.
  
      return (o.get('Parent__r') != null ? o.get('Parent__r').get('Name') : null);
